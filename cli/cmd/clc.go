@@ -9,7 +9,7 @@ import (
 	"regexp"
 )
 
-func CLCCommands() *cobra.Command {
+func CLC() *cobra.Command {
 	clcCommand := &cobra.Command{
 		Use:   "clc",
 		Short: "Helpful commands for interacting with Century Link Cloud",

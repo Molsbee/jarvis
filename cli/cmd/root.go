@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(CLCCommands())
+	rootCmd.AddCommand(CLC(), HackerNews())
 }
 
 var rootCmd = &cobra.Command{
