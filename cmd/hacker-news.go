@@ -2,13 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Molsbee/jarvis/cli/service/hacker_news"
+	"github.com/Molsbee/jarvis/service/hacker_news"
 	"github.com/spf13/cobra"
 	"os"
 	"strconv"
 )
 
-func HackerNews() *cobra.Command {
+func hackerNewsCommands() *cobra.Command {
 	hackerNews := &cobra.Command{
 		Use:   "hacker-news",
 		Short: "Commands for interacting with hacker news.",

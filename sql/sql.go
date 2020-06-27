@@ -2,7 +2,7 @@ package sql
 
 import (
 	"fmt"
-	"github.com/Molsbee/jarvis/server/config"
+	"github.com/Molsbee/jarvis/config"
 	"github.com/jinzhu/gorm"
 	"net/url"
 )
@@ -33,6 +33,7 @@ func NewSQLClient(uri string) (c *Client, err error) {
 	if gErr != nil {
 		err = fmt.Errorf("error opening %s database connection - %s", uri, gErr)
 	}
+	db.LogMode(false)
 
 	c = &Client{
 		DB: db,

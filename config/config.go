@@ -26,9 +26,7 @@ func init() {
 
 	for _, dir := range directories {
 		config, err := parseConfig(dir)
-		if err != nil {
-			log.Println(err)
-		} else {
+		if err == nil {
 			UserConfig = config
 			parsedConfig = true
 			break

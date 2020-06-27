@@ -2,14 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Molsbee/jarvis/cli/service/clc"
+	"github.com/Molsbee/jarvis/service/clc"
 	"github.com/spf13/cobra"
-	"log"
 	"os"
 	"regexp"
 )
 
-func CLC() *cobra.Command {
+func clcCommands() *cobra.Command {
 	clcCommand := &cobra.Command{
 		Use:   "clc",
 		Short: "Helpful commands for interacting with Century Link Cloud",
@@ -43,13 +42,12 @@ func CLC() *cobra.Command {
 				os.Exit(1)
 			}
 
-			address, err := clc.FindIPAddress(ipAddress)
-			if err != nil {
-				log.Printf("unable to locate ip address possible error - %s\n", err)
-				return
+			address := clc.FindIPAddress(ipAddress)
+			if address != nil {
+				fmt.Println(address)
+			} else {
+				fmt.Printf("failed to find ip address %s", ipAddress)
 			}
-
-			fmt.Println(address)
 		},
 	})
 
