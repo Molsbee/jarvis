@@ -1,5 +1,7 @@
 package config
 
+import "strings"
+
 type Config struct {
 	Domain struct {
 		Name     string `json:"name"`
@@ -7,6 +9,15 @@ type Config struct {
 		Password string `json:"password"`
 	} `json:"domain"`
 	DataCenters []DataCenter `json:"dataCenters"`
+}
+
+func (c Config) GetDataCenter(dataCenter string) *DataCenter {
+	for _, dc := range c.DataCenters {
+		if strings.ToLower(dc.Name) == strings.ToLower(dataCenter) {
+			return &dc
+		}
+	}
+	return nil
 }
 
 type DataCenter struct {

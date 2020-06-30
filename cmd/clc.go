@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/Molsbee/jarvis/service"
 	"github.com/Molsbee/jarvis/service/clc"
 	"github.com/spf13/cobra"
 	"os"
@@ -24,7 +25,6 @@ func clcCommands() *cobra.Command {
 			cmd.Help()
 		},
 	}
-
 	find.AddCommand(&cobra.Command{
 		Use:     "ip {{ ipAddress }}",
 		Example: "jarvis clc find ip 10.121.12.15",
@@ -52,5 +52,35 @@ func clcCommands() *cobra.Command {
 	})
 
 	clcCommand.AddCommand(find)
+	clcCommand.AddCommand(haProxy())
 	return clcCommand
+}
+
+func haProxy() *cobra.Command {
+	ha := &cobra.Command{
+		Use: "haproxy",
+		Run: func(cmd *cobra.Command, args []string) {
+
+		},
+	}
+
+	ha.AddCommand(&cobra.Command{
+		Use:     "stats",
+		Example: "jarvis clc haproxy check-stats uc1",
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				fmt.Println("please provide a data center")
+			}
+			stats, err := service.GetStatsPage(args[0])
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			for _, stat := range stats {
+				fmt.Println(stat)
+			}
+		},
+	})
+
+	return ha
 }
