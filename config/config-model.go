@@ -3,6 +3,10 @@ package config
 import "strings"
 
 type Config struct {
+	Zendesk struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	} `json:"zendesk"`
 	Domain struct {
 		Name     string `json:"name"`
 		Username string `json:"username"`

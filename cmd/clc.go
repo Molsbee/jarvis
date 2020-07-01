@@ -53,6 +53,7 @@ func clcCommands() *cobra.Command {
 
 	clcCommand.AddCommand(find)
 	clcCommand.AddCommand(haProxy())
+	clcCommand.AddCommand(zendesk())
 	return clcCommand
 }
 
@@ -83,4 +84,23 @@ func haProxy() *cobra.Command {
 	})
 
 	return ha
+}
+
+func zendesk() *cobra.Command {
+	return &cobra.Command{
+		Use:     "check-zendesk",
+		Example: "jarvis clc check-zendesk",
+		Aliases: []string{"zendesk"},
+		Run: func(cmd *cobra.Command, args []string) {
+			tickets, err := service.GetZendeskTickets()
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+
+			for _, t := range tickets {
+				fmt.Printf("%d %-15s %-60s %s\n", t.ID, t.GetGroupName(), t.ShortenedSubject(), t.URL)
+			}
+		},
+	}
 }
