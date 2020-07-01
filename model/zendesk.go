@@ -17,8 +17,8 @@ type ZendeskTicket struct {
 }
 
 func (z ZendeskTicket) ShortenedSubject() string {
-	if len(z.Subject) > 60 {
-		return z.Subject[:57] + "..."
+	if len(z.Subject) > 100 {
+		return z.Subject[:97] + "..."
 	}
 	return z.Subject
 }
