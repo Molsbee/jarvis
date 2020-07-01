@@ -60,7 +60,7 @@ func haProxy() *cobra.Command {
 	ha := &cobra.Command{
 		Use: "haproxy",
 		Run: func(cmd *cobra.Command, args []string) {
-
+			cmd.Help()
 		},
 	}
 
