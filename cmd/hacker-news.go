@@ -22,7 +22,7 @@ func hackerNewsCommands() *cobra.Command {
 		Short: "List the top stories on hacker news",
 		Long:  "List the top stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 		Run: func(cmd *cobra.Command, args []string) {
-			value := parseStoryCount(args[0], 20)
+			value := parseStoryCount(args, 20)
 			stories, err := hacker_news.GetTopStories(value)
 			if err != nil {
 				fmt.Printf("unable to load the top stories from hacker news - %s", err)
@@ -39,7 +39,7 @@ func hackerNewsCommands() *cobra.Command {
 			Short: "List new stories on hacker news",
 			Long:  "List new stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 			Run: func(cmd *cobra.Command, args []string) {
-				value := parseStoryCount(args[0], 20)
+				value := parseStoryCount(args, 20)
 				stories, err := hacker_news.GetNewStories(value)
 				if err != nil {
 					fmt.Printf("unable to load the newest stories from hacker news - %s", err)
@@ -56,7 +56,7 @@ func hackerNewsCommands() *cobra.Command {
 			Short: "List the best stories on hacker news",
 			Long:  "List the best stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 			Run: func(cmd *cobra.Command, args []string) {
-				value := parseStoryCount(args[0], 20)
+				value := parseStoryCount(args, 20)
 				stories, err := hacker_news.GetBestStories(value)
 				if err != nil {
 					fmt.Printf("unable to load the best stories from hacker news - %s", err)
@@ -72,9 +72,9 @@ func hackerNewsCommands() *cobra.Command {
 	return hackerNews
 }
 
-func parseStoryCount(num string, defaultValue int) int {
-	if len(num) != 0 {
-		v, err := strconv.Atoi(num)
+func parseStoryCount(args []string, defaultValue int) int {
+	if len(args) != 0 {
+		v, err := strconv.Atoi(args[0])
 		if err != nil {
 			fmt.Println("Please provide a valid number")
 			os.Exit(1)

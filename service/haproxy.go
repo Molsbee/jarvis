@@ -9,7 +9,7 @@ import (
 )
 
 func GetStatsPage(dataCenter string) (list []model.HAProxyStatsResponse, err error) {
-	dc := config.UserConfig.GetDataCenter(dataCenter)
+	dc := config.GetDataCenter(dataCenter)
 	if dc == nil {
 		err = fmt.Errorf("unsupported data center %s provided", dataCenter)
 		return

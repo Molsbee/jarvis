@@ -10,7 +10,7 @@ import (
 
 func FindIPAddress(ip string) (ipAddress *model.IPAddress) {
 	ch := make(chan model.IPAddress)
-	for _, dc := range config.UserConfig.DataCenters {
+	for _, dc := range config.DataCenters {
 		go findIPAddress(ip, dc, ch)
 	}
 
