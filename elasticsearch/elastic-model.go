@@ -1,5 +1,7 @@
 package elasticsearch
 
+import "github.com/Molsbee/jarvis/model"
+
 type ElasticResponse struct {
 	Hits struct {
 		Hits     []ElasticHit `json:"hits"`
@@ -23,8 +25,8 @@ type ElasticHit struct {
 
 type Document struct {
 	Doc struct {
-		VM                  VM                  `json:"vm"`
-		ServerConfiguration ServerConfiguration `json:"serverConfiguration"`
+		VM                  model.VM                  `json:"vm"`
+		ServerConfiguration model.ServerConfiguration `json:"serverConfiguration"`
 	} `json:"doc"`
 	Meta struct {
 		Expiration int    `json:"expiration"`

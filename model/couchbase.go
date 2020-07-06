@@ -1,4 +1,4 @@
-package elasticsearch
+package model
 
 type VM struct {
 	ID      string `json:"id"`

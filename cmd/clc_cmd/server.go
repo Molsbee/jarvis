@@ -2,7 +2,7 @@ package clc_cmd
 
 import (
 	"fmt"
-	"github.com/Molsbee/jarvis/elasticsearch"
+	"github.com/Molsbee/jarvis/config"
 	"github.com/Molsbee/jarvis/service/clc"
 	"github.com/spf13/cobra"
 	"os"
@@ -19,7 +19,7 @@ func vm() *cobra.Command {
 		Use:     "vm",
 		Example: "vm --serverName UC1T3NMT2016-01 --env prod",
 		Run: func(cmd *cobra.Command, args []string) {
-			environment, err := elasticsearch.GetEnvironment(environment)
+			environment, err := config.GetEnvironment(environment)
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
