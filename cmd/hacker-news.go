@@ -18,9 +18,10 @@ func hackerNewsCommands() *cobra.Command {
 	}
 
 	hackerNews.AddCommand(&cobra.Command{
-		Use:   "top-stories",
-		Short: "List the top stories on hacker news",
-		Long:  "List the top stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
+		Use:     "top-stories",
+		Aliases: []string{"top"},
+		Short:   "List the top stories on hacker news",
+		Long:    "List the top stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 		Run: func(cmd *cobra.Command, args []string) {
 			value := parseStoryCount(args, 20)
 			stories, err := hacker_news.GetTopStories(value)
@@ -35,9 +36,10 @@ func hackerNewsCommands() *cobra.Command {
 		},
 	},
 		&cobra.Command{
-			Use:   "new-stories",
-			Short: "List new stories on hacker news",
-			Long:  "List new stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
+			Use:     "new-stories",
+			Aliases: []string{"new"},
+			Short:   "List new stories on hacker news",
+			Long:    "List new stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 			Run: func(cmd *cobra.Command, args []string) {
 				value := parseStoryCount(args, 20)
 				stories, err := hacker_news.GetNewStories(value)
@@ -52,9 +54,10 @@ func hackerNewsCommands() *cobra.Command {
 			},
 		},
 		&cobra.Command{
-			Use:   "best-stories",
-			Short: "List the best stories on hacker news",
-			Long:  "List the best stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
+			Use:     "best-stories",
+			Aliases: []string{"best"},
+			Short:   "List the best stories on hacker news",
+			Long:    "List the best stories on hacker news (optionally pass in a number for how many stories to show defaults to 20)",
 			Run: func(cmd *cobra.Command, args []string) {
 				value := parseStoryCount(args, 20)
 				stories, err := hacker_news.GetBestStories(value)
