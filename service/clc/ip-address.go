@@ -3,7 +3,7 @@ package clc
 import (
 	"github.com/Molsbee/jarvis/config"
 	"github.com/Molsbee/jarvis/model"
-	"github.com/Molsbee/jarvis/sql"
+	"github.com/Molsbee/jarvis/service/clc/sql"
 	"log"
 	"time"
 )
