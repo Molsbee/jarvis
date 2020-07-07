@@ -14,6 +14,8 @@ func GetCommands() *cobra.Command {
 			cmd.Help()
 		},
 	}
-	clcCommand.AddCommand(ipCommand, vm(), haProxy(), zendesk())
+
+	checkMK.PersistentFlags().BoolVarP(&say, "say", "s", false, "say (adds os call to run say if its installed)")
+	clcCommand.AddCommand(ipCommand, vm(), haProxy(), zendesk(), checkMK)
 	return clcCommand
 }

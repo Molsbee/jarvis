@@ -24,7 +24,7 @@ func haProxy() *cobra.Command {
 				os.Exit(1)
 			}
 
-			stats, err := service.GetStatsPage(args[0])
+			stats, err := service.GetHAProxyStatsPage(args[0])
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)

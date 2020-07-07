@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func GetStatsPage(dataCenter string) (list []model.HAProxyStatsResponse, err error) {
+func GetHAProxyStatsPage(dataCenter string) (list []model.HAProxyStatsResponse, err error) {
 	dc := config.GetDataCenter(dataCenter)
 	if dc == nil {
 		err = fmt.Errorf("unsupported data center %s provided", dataCenter)
