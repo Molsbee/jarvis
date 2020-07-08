@@ -25,16 +25,19 @@ func vm() *cobra.Command {
 				os.Exit(1)
 			}
 
+			// TODO: Could move from persistent flags and perform REGEX to determine if the server name is UUID.
 			if len(serverName) != 0 {
 				server, err := clc.GetServerDetails(environment, serverName)
 				if err != nil {
 					fmt.Println(err)
+					os.Exit(1)
 				}
 				fmt.Println(server)
 			} else if len(hardwareUUID) != 0 {
 				server, err := clc.GetServerDetailsByHardwareUUID(environment, hardwareUUID)
 				if err != nil {
 					fmt.Println(err)
+					os.Exit(1)
 				}
 				fmt.Println(server)
 			} else {

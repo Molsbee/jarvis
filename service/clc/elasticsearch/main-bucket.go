@@ -37,12 +37,12 @@ func (m *main) GetServerDetails(name string) (s model.ServerResponse, err error)
 func (m *main) GetServerDetailsByHardwareUUID(uuid string) (s model.ServerResponse, err error) {
 	vm, vmErr := m.getVirtualMachineInfoByHardwareUUID(uuid)
 	if vmErr != nil {
-		err = fmt.Errorf("unable to pull vm document for server id: (%s) - %s", uuid, vmErr)
+		err = fmt.Errorf("unable to pull vm document for server hardware uuid: (%s) - %s", uuid, vmErr)
 		return
 	}
 	serverConfiguration, sErr := m.getServerConfigurationByHardwareUUID(uuid)
 	if sErr != nil {
-		err = fmt.Errorf("unable to pull server configuration document for server id: (%s) - %s", uuid, vmErr)
+		err = fmt.Errorf("unable to pull server configuration document for server hardware uuid: (%s) - %s", uuid, vmErr)
 		return
 	}
 
@@ -60,6 +60,10 @@ func (m *main) getVirtualMachineInfo(name string) (v model.VM, err error) {
 		return
 	}
 
+	if len(response.Hits.Hits) == 0 {
+		err = fmt.Errorf("unable to find vm with name %s", name)
+		return
+	}
 	v = response.Hits.Hits[0].Source.Doc.VM
 	return
 }
@@ -74,6 +78,10 @@ func (m *main) getVirtualMachineInfoByHardwareUUID(uuid string) (v model.VM, err
 		return
 	}
 
+	if len(response.Hits.Hits) == 0 {
+		err = fmt.Errorf("unable to find vm with hardware uuid %s", uuid)
+		return
+	}
 	v = response.Hits.Hits[0].Source.Doc.VM
 	return
 }
@@ -88,6 +96,10 @@ func (m *main) getServerConfiguration(name string) (s model.ServerConfiguration,
 		return
 	}
 
+	if len(response.Hits.Hits) == 0 {
+		err = fmt.Errorf("unable to find vm with name %s", name)
+		return
+	}
 	s = response.Hits.Hits[0].Source.Doc.ServerConfiguration
 	return
 }
@@ -102,6 +114,10 @@ func (m *main) getServerConfigurationByHardwareUUID(uuid string) (s model.Server
 		return
 	}
 
+	if len(response.Hits.Hits) == 0 {
+		err = fmt.Errorf("unable to find vm with hardware uuid %s", uuid)
+		return
+	}
 	s = response.Hits.Hits[0].Source.Doc.ServerConfiguration
 	return
 }
