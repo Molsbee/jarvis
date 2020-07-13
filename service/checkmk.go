@@ -12,8 +12,9 @@ import (
 )
 
 func GetCheckMKStatus() ([]string, error) {
-	checkUser := config.UserConfig.Domain.Username
-	checkPass := config.UserConfig.Domain.Password
+	domainCredentials := config.GetConfig().Domain
+	checkUser := domainCredentials.Username
+	checkPass := domainCredentials.Password
 	if checkUser == "" || checkPass == "" {
 		return nil, fmt.Errorf("no credentials provided for accessing check_mk")
 	}

@@ -10,7 +10,8 @@ import (
 
 func post(url string, data string) (v ElasticResponse, err error) {
 	request, _ := http.NewRequest("POST", url, strings.NewReader(data))
-	request.SetBasicAuth(config.UserConfig.Domain.Username, config.UserConfig.Domain.Password)
+	domainCredentials := config.GetConfig().Domain
+	request.SetBasicAuth(domainCredentials.Username, domainCredentials.Password)
 
 	resp, err := http.DefaultClient.Do(request)
 	if err != nil {

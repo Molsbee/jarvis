@@ -1,15 +1,19 @@
 package config
 
 type Config struct {
-	Zendesk struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	} `json:"zendesk"`
-	Domain struct {
-		Name     string `json:"name"`
-		Username string `json:"username"`
-		Password string `json:"password"`
-	} `json:"domain"`
+	Zendesk ZendeskCredentials `json:"zendesk"`
+	Domain  DomainCredentials  `json:"domain"`
+}
+
+type ZendeskCredentials struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type DomainCredentials struct {
+	Name     string `json:"name"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type DataCenter struct {

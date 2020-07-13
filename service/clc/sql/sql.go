@@ -21,7 +21,7 @@ func NewSQLClient(uri string) (c *Client, err error) {
 	query := url.Values{}
 	query.Add("database", "T3MAIN")
 
-	domain := config.UserConfig.Domain
+	domain := config.GetConfig().Domain
 	u := url.URL{
 		Scheme:   "sqlserver",
 		User:     url.UserPassword(fmt.Sprintf("%s\\%s", domain.Name, domain.Username), domain.Password),

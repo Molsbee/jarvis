@@ -12,7 +12,8 @@ const zendeskAPI = "https://t3n.zendesk.com/api/v2/"
 
 func GetZendeskTickets() ([]model.ZendeskTicket, error) {
 	request, _ := http.NewRequest("GET", fmt.Sprintf("%s/views/incoming/tickets.json", zendeskAPI), nil)
-	request.SetBasicAuth(config.UserConfig.Zendesk.Username, config.UserConfig.Zendesk.Password)
+	zendeskCredentials := config.GetConfig().Zendesk
+	request.SetBasicAuth(zendeskCredentials.Username, zendeskCredentials.Password)
 
 	resp, err := http.DefaultClient.Do(request)
 	if err != nil {

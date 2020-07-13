@@ -13,7 +13,6 @@ const FileName = ".jarvis-config.json"
 
 var (
 	parsedConfig = false
-	UserConfig   Config
 	DataCenters  = []DataCenter{
 		{
 			Name:    "AU1",
@@ -217,7 +216,7 @@ func GetDataCenter(dataCenter string) *DataCenter {
 	return nil
 }
 
-func init() {
+func GetConfig() Config {
 	userHomeDir, _ := os.UserHomeDir()
 	workingDir, _ := os.Getwd()
 	directories := []string{
@@ -229,15 +228,12 @@ func init() {
 	for _, dir := range directories {
 		config, err := parseConfig(dir)
 		if err == nil {
-			UserConfig = config
-			parsedConfig = true
-			break
+			return config
 		}
 	}
 
-	if !parsedConfig {
-		log.Panic("unable to parse user config")
-	}
+	log.Panic("unable to parse user config")
+	return Config{}
 }
 
 func parseConfig(filePath string) (config Config, err error) {
@@ -258,4 +254,15 @@ func parseConfig(filePath string) (config Config, err error) {
 
 	err = fmt.Errorf("file not found at provided path %s", filePath)
 	return
+}
+
+func Write(config Config) error {
+	data, _ := json.Marshal(config)
+
+	workingDirectory, _ := os.UserHomeDir()
+	if err := ioutil.WriteFile(fmt.Sprintf("%s/%s", workingDirectory, FileName), data, os.FileMode(0600)); err != nil {
+		return fmt.Errorf("unable to write config file to home directory - err (%s)", err)
+	}
+
+	return nil
 }

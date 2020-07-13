@@ -19,7 +19,7 @@ The application will be expanded to provide additional functionality required fo
 )
 
 func init() {
-	rootCmd.AddCommand(showConfig, clc_cmd.GetCommands(), hackerNewsCommands())
+	rootCmd.AddCommand(showConfig, writeConfig, clc_cmd.GetCommands(), hackerNewsCommands())
 }
 
 func Execute() {
