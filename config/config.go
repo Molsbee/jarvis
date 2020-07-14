@@ -12,8 +12,7 @@ import (
 const FileName = ".jarvis-config.json"
 
 var (
-	parsedConfig = false
-	DataCenters  = []DataCenter{
+	DataCenters = []DataCenter{
 		{
 			Name:    "AU1",
 			HAProxy: "http://haproxy-au1.t3n.dom:1936/stats;csv;norefresh",
@@ -225,35 +224,33 @@ func GetConfig() Config {
 		fmt.Sprintf("%s/../%s", workingDir, FileName),
 	}
 
+	config := Config{}
 	for _, dir := range directories {
-		config, err := parseConfig(dir)
+		err := parseConfig(dir, &config)
 		if err == nil {
 			return config
 		}
 	}
 
 	log.Panic("unable to parse user config")
-	return Config{}
+	return config
 }
 
-func parseConfig(filePath string) (config Config, err error) {
+func parseConfig(filePath string, v *Config) error {
 	if _, fErr := os.Stat(filePath); !os.IsNotExist(fErr) {
 		data, rErr := ioutil.ReadFile(filePath)
 		if rErr != nil {
-			err = fmt.Errorf("unable to read file %s", filePath)
-			return
+			return fmt.Errorf("unable to read file %s", filePath)
 		}
 
-		if jErr := json.Unmarshal(data, &config); jErr != nil {
-			err = fmt.Errorf("unable to parse config file %s properly", filePath)
-			return
+		if jErr := json.Unmarshal(data, &v); jErr != nil {
+			return fmt.Errorf("unable to parse config file %s properly", filePath)
 		}
 
-		return
+		return nil
 	}
 
-	err = fmt.Errorf("file not found at provided path %s", filePath)
-	return
+	return fmt.Errorf("file not found at provided path %s", filePath)
 }
 
 func Write(config Config) error {
