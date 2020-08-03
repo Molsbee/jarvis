@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Molsbee/jarvis/config"
 	"github.com/Molsbee/jarvis/model"
+	"log"
 	"strings"
 )
 
@@ -26,8 +27,7 @@ func (m *main) GetServerDetails(name string) (s model.ServerResponse, err error)
 
 	serverConfiguration, sErr := m.getServerConfiguration(name)
 	if sErr != nil {
-		err = fmt.Errorf("unable to pull server configuration document for server name: (%s) - %s", name, vmErr)
-		return
+		log.Printf("unable to pull server configuration document for server name: (%s) - %s\n", name, sErr)
 	}
 
 	s = model.NewServerResponse(vm, serverConfiguration)
