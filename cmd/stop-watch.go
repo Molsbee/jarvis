@@ -9,7 +9,8 @@ import (
 )
 
 var stopWatch = &cobra.Command{
-	Use: "stop-watch",
+	Use:   "stop-watch",
+	Short: "start a stop watch for a provided duration that is longer than 1 second (ex. 30s, 1m)",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			fmt.Println("please provide a valid duration for the stop watch (ex. 300s, 1m) that is greater than 1 second")
